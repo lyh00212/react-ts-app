@@ -7,7 +7,7 @@ import {
 } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
 import styles from './Login.module.scss'
-import { REGISTER, MANAGE_INDEX_PATHNAME } from '@/router/index'
+import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME } from '@/router/index'
 import { loginService } from '@/services/user'
 import { setToken } from '@/utils/user-token'
 
@@ -106,7 +106,7 @@ const Login: FC = () => {
                     <Form.Item wrapperCol={{ offset: 7, span: 16 }}>
                         <Space>
                             <Button type="primary" htmlType="submit">登录</Button>
-                            <Link to={REGISTER}>注册新用户</Link>
+                            <Link to={REGISTER_PATHNAME}>注册新用户</Link>
                         </Space>
                     </Form.Item>
                 </Form>
