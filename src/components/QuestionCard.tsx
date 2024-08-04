@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Button, Space, Divider, Tag, Popconfirm, message } from 'antd'
 import { 
     EditOutlined, 
@@ -8,6 +8,8 @@ import {
     DeleteOutlined 
 } from '@ant-design/icons'
 import { useNavigate, Link } from 'react-router-dom'
+import { useRequest } from 'ahooks'
+import { updateQuestionService, duplicateQuestionService } from '@/services/question'
 import styles from './QuestionCard.module.scss'
 
 type PropsType = {
@@ -22,22 +24,55 @@ type PropsType = {
 const QuestionCard: FC<PropsType> = (props: PropsType) => {
     const { _id, title, isPublished, isStar, answerCount, createdAt } = props
     const nav = useNavigate()
+    const [isStarState, setIsStarState] = useState(isStar)
 
-    const duplicate = () => {
-        message.info('复制')
-    }
+    const { run: changeStar, loading: changeStarLoading } = useRequest(
+        async () => {
+            await updateQuestionService(_id, { isStar: !isStarState })
+        },
+        {
+            manual: true,
+            onSuccess() {
+                setIsStarState(!isStarState)
+                message.success('更新成功')
+            }
+        }
+    )
 
-    const del = () => {
-        message.info('删除')
-    }
+    const { run: duplicate, loading: duplicateLoading } = useRequest(
+        async () => {
+            const data = await duplicateQuestionService(_id)
+            return data
+        },
+        {
+            manual: true,
+            onSuccess(result: any) {
+                message.success('复制成功')
+                nav(`/question/edit/${result.id}`)
+            }
+        }
+    )
 
+    const [isDeletedState, setIsDeletedState] = useState(false)
+    const { run: deleteQuestion, loading: deleteLoading } = useRequest(
+        async () => await updateQuestionService(_id, { isDeleted: true }),
+        {
+            manual: true,
+            onSuccess() {
+                message.success('删除成功')
+                setIsDeletedState(true)
+            }
+        }
+    )
+
+    if (isDeletedState) return
     return (
         <div className={styles.container}>
             <div className={styles.title}>
                 <div className={styles.left}>
                     <Link to={isPublished ? `/question/stat/${_id}` : `/question/edit/${_id}`}>
                         <Space>
-                            { isStar && <StarOutlined style={{ color: 'red'}} /> }
+                            { isStarState && <StarOutlined style={{ color: 'red'}} /> }
                             {title}
                         </Space>
                     </Link>
@@ -71,8 +106,14 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                 </div>
                 <div className={styles.right}>
                     <Space>
-                        <Button type='text' size='small' icon={<StarOutlined />}>
-                            { isStar ? '取消标星' : '标星'}
+                        <Button 
+                            type='text' 
+                            size='small' 
+                            icon={<StarOutlined />} 
+                            onClick={changeStar} 
+                            disabled={changeStarLoading}
+                        >
+                            { isStarState ? '取消标星' : '标星'}
                         </Button>
                         <Popconfirm
                             title="确定复制该问卷？"
@@ -80,7 +121,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                             cancelText="取消"
                             onConfirm={duplicate}
                         >
-                            <Button type='text' size='small' icon={<CopyOutlined />}>
+                            <Button type='text' size='small' icon={<CopyOutlined />} disabled={duplicateLoading}>
                                 复制
                             </Button>
                         </Popconfirm>
@@ -88,9 +129,9 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                             title="确定删除该问卷？"
                             okText="确定"
                             cancelText="取消"
-                            onConfirm={del}
+                            onConfirm={deleteQuestion}
                         >
-                            <Button type='text' size='small' icon={<DeleteOutlined />}>
+                            <Button type='text' size='small' icon={<DeleteOutlined />} disabled={deleteLoading}>
                                 删除
                             </Button>
                         </Popconfirm>

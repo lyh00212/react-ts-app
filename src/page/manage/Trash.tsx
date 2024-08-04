@@ -5,10 +5,11 @@ import {
     Button, Space, Modal, message, Spin 
 } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { useTitle } from 'ahooks'
+import { useTitle, useRequest } from 'ahooks'
 import ListSearch from '@/components/ListSearch'
 import ListPage from '@/components/ListPage'
 import useLoadQuestionListData from '@/hooks/useLoadQuestionListData'
+import { updateQuestionService, deleteQuestionsService } from '@/services/question'
 import styles from './Common.module.scss'
 
 const classnames = cs.bind(styles)
@@ -17,9 +18,39 @@ const { confirm } = Modal
 const Trash: FC = () => {
     useTitle("问卷星 - 回收站")
 
-    const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true })
+    const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true })
     const { list = [], total = 0 } = data
     const [selectedIds, setSelectedIds] = useState<string[]>([])
+    // 恢复
+    const { run: recover } = useRequest(
+        async () => {
+            for await (const id of selectedIds) {
+                await updateQuestionService(id, { isDeleted: false })
+            }
+        },
+        {
+            manual: true,
+            debounceWait: 500,
+            onSuccess() {
+                message.success('恢复成功')
+                refresh() // 手动刷新列表
+                setSelectedIds([])
+            }
+        }
+    )
+    // 批量删除
+    const { run: deleteQuestion } = useRequest(
+        async () => await deleteQuestionsService(selectedIds),
+        {
+            manual: true,
+            debounceWait: 500,
+            onSuccess() {
+                message.success('删除成功')
+                refresh()
+                setSelectedIds([])
+            }
+        }
+    )
 
     const tableColumns = [
         {
@@ -55,7 +86,7 @@ const Trash: FC = () => {
             okText: '删除',
             cancelText: '取消',
             onOk: () => {
-                message.info('删除' + selectedIds)
+                deleteQuestion()
             }
         })
     }
@@ -64,7 +95,7 @@ const Trash: FC = () => {
         <>
             <div style={{ marginBottom: '16px'}}>
                 <Space>
-                    <Button type='primary' disabled={selectedIds.length === 0}>恢复</Button>
+                    <Button type='primary' disabled={selectedIds.length === 0} onClick={recover}>恢复</Button>
                     <Button danger disabled={selectedIds.length === 0} onClick={del}>彻底删除</Button>
                 </Space>
             </div>

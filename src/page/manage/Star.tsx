@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import cs from 'classnames/bind'
-import { Typography, Empty, Spin, Pagination } from 'antd'
+import { Typography, Empty, Spin } from 'antd'
 import { useTitle } from 'ahooks'
 import QuestionCard from '@/components/QuestionCard'
 import ListSearch from '@/components/ListSearch'
