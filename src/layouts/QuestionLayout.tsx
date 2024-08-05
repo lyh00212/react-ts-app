@@ -10,7 +10,6 @@ const QuestionLayout: FC = () => {
 
     return (
         <div>
-            <p>Question Layout</p>
             <div>
                 { waitingUserData ? (
                     <div style={{ textAlign: 'center', marginTop: '60px' }}>
