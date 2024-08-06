@@ -1,9 +1,11 @@
-import React, { FC } from 'react'
+import React, { FC, MouseEvent } from 'react'
 import { Spin } from 'antd'
+import { useDispatch } from 'react-redux'
+import classNames from 'classnames'
 import styles from './EditCanvas.module.scss'
 import useGetComponentInfo from '@/hooks/useGetComponentInfo'
 import { getComponentConfByType } from '@/components/QuestionComponents/index'
-import { ComponentInfoType } from '@/store/componentsReducer'
+import { ComponentInfoType, changeSelectedId } from '@/store/componentsReducer'
 // 临时展示input和title组件
 // import QuestionTitle from '@/components/QuestionComponents/QuestionTitle/Component'
 // import QuestionInput from '@/components/QuestionComponents/QuestionInput/Component'
@@ -13,7 +15,7 @@ type PropsType = {
 }
 
 // 处理从接口 api/question/:id 获取到的数据
-function getComponent(componentInfo: ComponentInfoType) {
+function genComponent(componentInfo: ComponentInfoType) {
     const { type, props } = componentInfo
     const componentConf = getComponentConfByType(type)
     if (!componentConf) return null
@@ -22,7 +24,15 @@ function getComponent(componentInfo: ComponentInfoType) {
 }
 const EditCanvas: FC<PropsType> = ({ loading }) => {
     // 从redux store中获取数据
-    const { componentList } = useGetComponentInfo()
+    const { componentList, selectedId } = useGetComponentInfo()
+    const dispatch = useDispatch()
+
+    function handleClick(event: MouseEvent, id: string) {
+        // 阻止冒泡
+        event.stopPropagation()
+        dispatch(changeSelectedId(id))
+    }
+
     if (loading) {
         return <div style={{ textAlign: 'center', marginTop: '24px' }}>
             <Spin />
@@ -33,12 +43,25 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
             {
                 componentList.map(item => {
                     const { fe_id } = item
-                    
-                    return <div key={fe_id} className={styles['component-wrapper']}>
-                        <div className={styles.component}>
-                            {getComponent(item)}
+                    // 拼接className
+                    const wrapperDefaultClassName = styles['component-wrapper']
+                    const selected = styles.selected
+                    const wrapperClassName = classNames({
+                        [wrapperDefaultClassName]: true,
+                        [selected]: fe_id === selectedId
+                    })
+
+                    return (
+                        <div 
+                            key={fe_id} 
+                            className={wrapperClassName}
+                            onClick={(e) => handleClick(e, fe_id)}
+                        >
+                            <div className={styles.component}>
+                                {genComponent(item)}
+                            </div>
                         </div>
-                    </div>
+                    )
                 })
             }
             {/* <div className={styles['component-wrapper']}>

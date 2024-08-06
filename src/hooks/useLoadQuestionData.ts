@@ -20,8 +20,14 @@ function useLoadQuestionData() {
     useEffect(() => {
         if (!data) return
         const { title = '', componentList = [] } = data
+        // 获取默认的 selectedId
+        let selectedId = ''
+        if (componentList.length > 0) {
+            // 默认选中第一个组件
+            selectedId = componentList[0].fe_id
+        }
         // 将 componentsList 存储到 Redux store 中
-        dispatch(resetComponents({ componentList }))
+        dispatch(resetComponents({ componentList, selectedId }))
     }, [data])
 
     // 判断id变化，执行ajax加载问卷数据
