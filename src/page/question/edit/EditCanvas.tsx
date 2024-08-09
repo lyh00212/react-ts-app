@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 import styles from './EditCanvas.module.scss'
 import useGetComponentInfo from '@/hooks/useGetComponentInfo'
+import useBindCanvasKeyPress from '@/hooks/useBindCanvasKeyPress'
 import { getComponentConfByType } from '@/components/QuestionComponents/index'
 import { ComponentInfoType, changeSelectedId } from '@/store/componentsReducer'
 // 临时展示input和title组件
@@ -26,12 +27,14 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
     // 从redux store中获取数据
     const { componentList, selectedId } = useGetComponentInfo()
     const dispatch = useDispatch()
-
+    // 点击组件，选中
     function handleClick(event: MouseEvent, id: string) {
         // 阻止冒泡
         event.stopPropagation()
         dispatch(changeSelectedId(id))
     }
+    // 绑定快捷键
+    useBindCanvasKeyPress()
 
     if (loading) {
         return <div style={{ textAlign: 'center', marginTop: '24px' }}>
@@ -41,14 +44,16 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
     return (
         <div className={styles.canvas}>
             {
-                componentList.map(item => {
-                    const { fe_id } = item
+                componentList.filter(c => !c.isHidden).map(item => {
+                    const { fe_id, isLocked } = item
                     // 拼接className
                     const wrapperDefaultClassName = styles['component-wrapper']
                     const selected = styles.selected
+                    const lockedClassName = styles.locked
                     const wrapperClassName = classNames({
                         [wrapperDefaultClassName]: true,
-                        [selected]: fe_id === selectedId
+                        [selected]: fe_id === selectedId,
+                        [lockedClassName]: isLocked
                     })
 
                     return (
