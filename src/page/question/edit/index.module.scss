@@ -1,19 +1,23 @@
 .container {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     height: 100vh;
     background-color: #f0f2f5;
     .content-wrapper {
-        flex: auto;
         padding: 12px 0;
+        height: calc(100% - 76px);
+        overflow: hidden;
         .content {
             margin: 0 24px;
             display: flex;
             height: 100%;
             .left {
-                width: 285px;
+                width: 295px;
+                height: 100%;
                 background-color: #fff;
                 padding: 0 12px;
+                overflow: auto;
             }
             .main {
                 flex: 1;
@@ -30,8 +34,10 @@
             }
             .right {
                 width: 300px;
+                height: 100%;
                 background-color: #fff;
                 padding: 0 12px;
+                overflow: auto;
             }
         }
     }
