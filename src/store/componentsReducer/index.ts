@@ -46,7 +46,7 @@ export const componentsSlice = createSlice({
         changeComponentProps: produce(
             (
                 draft: ComponentsStateType, 
-                action: PayloadAction<{ fe_id: string, newProps: ComponentPropsType }>
+                action: PayloadAction<{ fe_id: string; newProps: ComponentPropsType }>
             ) => {
                 const { fe_id, newProps } = action.payload
                 // 找到当前要修改属性的这个组件
@@ -74,7 +74,7 @@ export const componentsSlice = createSlice({
         changeComponentHidden: produce(
             (
                 draft: ComponentsStateType, 
-                action: PayloadAction<{ fe_id: string, isHidden: boolean }>
+                action: PayloadAction<{ fe_id: string; isHidden: boolean }>
             ) => {
                 const { componentList = [], selectedId } = draft
                 const { fe_id, isHidden } = action.payload
@@ -148,6 +148,15 @@ export const componentsSlice = createSlice({
                 if (selectedIndex < 0 || selectedIndex === componentList.length - 1) return
                 draft.selectedId = componentList[selectedIndex + 1].fe_id
             }
+        ),
+        // 修改组件标题
+        changeComponentTitle: produce(
+            (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string; title: string }>) => {
+                const { fe_id, title } = action.payload
+
+                const curComp = draft.componentList.find(item => item.fe_id === fe_id)
+                if (curComp) curComp.title = title
+            }
         )
     }
 })
@@ -156,6 +165,6 @@ export const {
     resetComponents, changeSelectedId, addComponent, changeComponentProps,
     removeSelectedComponent, changeComponentHidden, toggleComponentLocked,
     copySelectedComponent, pasteCopiedComponent, selectPrevComponent,
-    selectNextComponent
+    selectNextComponent, changeComponentTitle
 } = componentsSlice.actions
 export default componentsSlice.reducer
