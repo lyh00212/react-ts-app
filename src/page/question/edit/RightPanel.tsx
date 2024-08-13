@@ -3,7 +3,7 @@ import { Tabs } from 'antd'
 import { FileTextOutlined, SettingOutlined } from '@ant-design/icons'
 import useGetComponentInfo from '@/hooks/useGetComponentInfo'
 import ComponentProp from './ComponentProp'
-import PageSetting from './pageSetting'
+import PageSetting from './PageSetting'
 
 // TS 枚举
 enum TAB_KEYS {
