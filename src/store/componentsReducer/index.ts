@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { produce } from 'immer'
 import cloneDeep from 'lodash.clonedeep'
 import { nanoid } from 'nanoid'
 import { arrayMove } from '@dnd-kit/sortable'
@@ -35,139 +34,124 @@ export const componentsSlice = createSlice({
             return action.payload
         },
         // 修改selectedId
-        changeSelectedId: produce((draft: ComponentsStateType, action: PayloadAction<string>) => {
-            draft.selectedId = action.payload
-        }),
+        changeSelectedId: (state: ComponentsStateType, action: PayloadAction<string>) => {
+            state.selectedId = action.payload
+        },
         // 添加新组件
-        addComponent: produce((draft: ComponentsStateType, action: PayloadAction<ComponentInfoType>) => {
+        addComponent: (state: ComponentsStateType, action: PayloadAction<ComponentInfoType>) => {
             const newComponent = action.payload
-            insertNewComponent(draft, newComponent)
-        }),
+            insertNewComponent(state, newComponent)
+        },
         // 修改组件属性
-        changeComponentProps: produce(
-            (
-                draft: ComponentsStateType, 
-                action: PayloadAction<{ fe_id: string; newProps: ComponentPropsType }>
-            ) => {
-                const { fe_id, newProps } = action.payload
-                // 找到当前要修改属性的这个组件
-                const curComp = draft.componentList.find(item => item.fe_id === fe_id)
-                if (curComp) {
-                    curComp.props = {
-                        ...curComp.props,
-                        ...newProps
-                    }
+        changeComponentProps: (
+            state: ComponentsStateType, 
+            action: PayloadAction<{ fe_id: string; newProps: ComponentPropsType }>
+        ) => {
+            const { fe_id, newProps } = action.payload
+            // 找到当前要修改属性的这个组件
+            const curComp = state.componentList.find(item => item.fe_id === fe_id)
+            if (curComp) {
+                curComp.props = {
+                    ...curComp.props,
+                    ...newProps
                 }
             }
-        ),
+        },
         // 删除选中的组件
-        removeSelectedComponent: produce(
-            (draft: ComponentsStateType) => {
-                const { componentList = [], selectedId: removeId } = draft
-                // 重新计算selectedId
-                const newSelectedId = getNextSelectedId(removeId, componentList)
-                draft.selectedId = newSelectedId
-                const index = componentList.findIndex(item => item.fe_id === removeId)
-                componentList.splice(index, 1)
-            }
-        ),
+        removeSelectedComponent: (state: ComponentsStateType) => {
+            const { componentList = [], selectedId: removeId } = state
+            // 重新计算selectedId
+            const newSelectedId = getNextSelectedId(removeId, componentList)
+            state.selectedId = newSelectedId
+            const index = componentList.findIndex(item => item.fe_id === removeId)
+            componentList.splice(index, 1)
+        },
         // 隐藏/显示 组件
-        changeComponentHidden: produce(
-            (
-                draft: ComponentsStateType, 
-                action: PayloadAction<{ fe_id: string; isHidden: boolean }>
-            ) => {
-                const { componentList = [], selectedId } = draft
-                const { fe_id, isHidden } = action.payload
-                // 重新计算selectedId
-                let newSelectedId = ''
-                if (isHidden) {
-                    // 要隐藏
-                    newSelectedId = getNextSelectedId(selectedId, componentList)
-                } else {
-                    // 要显示
-                    newSelectedId = fe_id
-                }
-                draft.selectedId = newSelectedId
-
-                const curComp = componentList.find(item => item.fe_id === fe_id)
-                if (curComp) {
-                    curComp.isHidden = isHidden
-                }
+        changeComponentHidden: (
+            state: ComponentsStateType, 
+            action: PayloadAction<{ fe_id: string; isHidden: boolean }>
+        ) => {
+            const { componentList = [], selectedId } = state
+            const { fe_id, isHidden } = action.payload
+            // 重新计算selectedId
+            let newSelectedId = ''
+            if (isHidden) {
+                // 要隐藏
+                newSelectedId = getNextSelectedId(selectedId, componentList)
+            } else {
+                // 要显示
+                newSelectedId = fe_id
             }
-        ),
+            state.selectedId = newSelectedId
+
+            const curComp = componentList.find(item => item.fe_id === fe_id)
+            if (curComp) {
+                curComp.isHidden = isHidden
+            }
+        },
         // 锁定/解锁 组件
-        toggleComponentLocked: produce(
-            (
-                draft: ComponentsStateType,
-                action: PayloadAction<{ fe_id: string }>
-            ) => {
-                const { componentList = [] } = draft
-                const { fe_id } = action.payload
-                const curComp = componentList.find(item => item.fe_id === fe_id)
-                if (curComp) {
-                    curComp.isLocked = !curComp.isLocked
-                }
+        toggleComponentLocked: (
+            state: ComponentsStateType,
+            action: PayloadAction<{ fe_id: string }>
+        ) => {
+            const { componentList = [] } = state
+            const { fe_id } = action.payload
+            const curComp = componentList.find(item => item.fe_id === fe_id)
+            if (curComp) {
+                curComp.isLocked = !curComp.isLocked
             }
-        ),
+        },
         // 拷贝当前选中的组件
-        copySelectedComponent: produce(
-            (draft: ComponentsStateType) => {
-                const { selectedId, componentList = [] } = draft
-                const selectedComponent = componentList.find(item => item.fe_id === selectedId)
-                if (!selectedComponent) return
-                draft.copiedComponent = cloneDeep(selectedComponent) // 深拷贝
-            }
-        ),
+        copySelectedComponent: (state: ComponentsStateType) => {
+            const { selectedId, componentList = [] } = state
+            const selectedComponent = componentList.find(item => item.fe_id === selectedId)
+            if (!selectedComponent) return
+            state.copiedComponent = cloneDeep(selectedComponent) // 深拷贝
+        },
         // 粘贴组件
-        pasteCopiedComponent: produce(
-            (draft: ComponentsStateType) => {
-                const { copiedComponent } = draft
-                if (copiedComponent === null) return
-                // 要把 fe_id 给修改了
-                copiedComponent.fe_id = nanoid()
+        pasteCopiedComponent: (state: ComponentsStateType) => {
+            const { copiedComponent } = state
+            if (copiedComponent === null) return
+            // 要把 fe_id 给修改了
+            copiedComponent.fe_id = nanoid()
 
-                insertNewComponent(draft, copiedComponent)
-            }
-        ),
+            insertNewComponent(state, copiedComponent)
+        },
         // 选中上一个
-        selectPrevComponent: produce(
-            (draft: ComponentsStateType) => {
-                const { selectedId, componentList } = draft
-                const selectedIndex = componentList.findIndex(item => item.fe_id === selectedId)
-                // 未选中组件或选中的是最开始的组件
-                if (selectedIndex < 0 || selectedIndex === 0) return
-                draft.selectedId = componentList[selectedIndex - 1].fe_id
-            }
-        ),
+        selectPrevComponent: (state: ComponentsStateType) => {
+            const { selectedId, componentList } = state
+            const selectedIndex = componentList.findIndex(item => item.fe_id === selectedId)
+            // 未选中组件或选中的是最开始的组件
+            if (selectedIndex < 0 || selectedIndex === 0) return
+            state.selectedId = componentList[selectedIndex - 1].fe_id
+        },
         // 选中下一个
-        selectNextComponent: produce(
-            (draft: ComponentsStateType) => {
-                const { selectedId, componentList } = draft
-                const selectedIndex = componentList.findIndex(item => item.fe_id === selectedId)
-                // 未选中组件或选中的是最后的组件
-                if (selectedIndex < 0 || selectedIndex === componentList.length - 1) return
-                draft.selectedId = componentList[selectedIndex + 1].fe_id
-            }
-        ),
+        selectNextComponent: (state: ComponentsStateType) => {
+            const { selectedId, componentList } = state
+            const selectedIndex = componentList.findIndex(item => item.fe_id === selectedId)
+            // 未选中组件或选中的是最后的组件
+            if (selectedIndex < 0 || selectedIndex === componentList.length - 1) return
+            state.selectedId = componentList[selectedIndex + 1].fe_id
+        },
         // 修改组件标题
-        changeComponentTitle: produce(
-            (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string; title: string }>) => {
-                const { fe_id, title } = action.payload
-
-                const curComp = draft.componentList.find(item => item.fe_id === fe_id)
-                if (curComp) curComp.title = title
-            }
-        ),
+        changeComponentTitle: (
+            state: ComponentsStateType, 
+            action: PayloadAction<{ fe_id: string; title: string }>
+        ) => {
+            const { fe_id, title } = action.payload
+            const curComp = state.componentList.find(item => item.fe_id === fe_id)
+            if (curComp) curComp.title = title
+        },
         // 移动组件位置
-        moveComponent: produce(
-            (draft: ComponentsStateType, action: PayloadAction<{oldIndex: number; newIndex: number}>) => {
-                const { oldIndex, newIndex } = action.payload
-                const { componentList: curComponentList } = draft
-                // 使用dnd-kit的arrayMove方法改变元素位置
-                draft.componentList = arrayMove(curComponentList, oldIndex, newIndex)
-            }
-        )
+        moveComponent: (
+            state: ComponentsStateType, 
+            action: PayloadAction<{oldIndex: number; newIndex: number}>
+        ) => {
+            const { oldIndex, newIndex } = action.payload
+            const { componentList: curComponentList } = state
+            // 使用dnd-kit的arrayMove方法改变元素位置
+            state.componentList = arrayMove(curComponentList, oldIndex, newIndex)
+        }
     }
 })
 
