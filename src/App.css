@@ -1,0 +1,4 @@
+/* 删除dnd-kit 拖拽排序增加的边框样式 */
+div[role="button"] {
+    outline: 0;
+}

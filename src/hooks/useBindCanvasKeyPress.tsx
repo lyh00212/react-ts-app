@@ -10,8 +10,13 @@ import {
 function isActiveElementValid() {
     // 获取光标的位置
     const activeElem = document.activeElement
-    // 返回true表示光标不在input上
-    return activeElem === document.body
+    // 返回true表示光标不在input上（没有增加dnd-kit之前 可以这样处理---dnd-kit会给元素加上某些类 导致事件不生效）
+    // return activeElem === document.body
+    
+    // 增加dnd-kit之后的处理方法
+    if (activeElem === document.body) return true
+    if (activeElem?.matches('div[role="button"]')) return true
+    return false
 }
 
 function useBindCanvasKeyPress() {

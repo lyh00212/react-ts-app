@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { produce } from 'immer'
 import cloneDeep from 'lodash.clonedeep'
 import { nanoid } from 'nanoid'
+import { arrayMove } from '@dnd-kit/sortable'
 import { ComponentPropsType } from '@/components/QuestionComponents'
 import { getNextSelectedId, insertNewComponent } from './utils'
 
@@ -157,6 +158,15 @@ export const componentsSlice = createSlice({
                 const curComp = draft.componentList.find(item => item.fe_id === fe_id)
                 if (curComp) curComp.title = title
             }
+        ),
+        // 移动组件位置
+        moveComponent: produce(
+            (draft: ComponentsStateType, action: PayloadAction<{oldIndex: number; newIndex: number}>) => {
+                const { oldIndex, newIndex } = action.payload
+                const { componentList: curComponentList } = draft
+                // 使用dnd-kit的arrayMove方法改变元素位置
+                draft.componentList = arrayMove(curComponentList, oldIndex, newIndex)
+            }
         )
     }
 })
@@ -165,6 +175,6 @@ export const {
     resetComponents, changeSelectedId, addComponent, changeComponentProps,
     removeSelectedComponent, changeComponentHidden, toggleComponentLocked,
     copySelectedComponent, pasteCopiedComponent, selectPrevComponent,
-    selectNextComponent, changeComponentTitle
+    selectNextComponent, changeComponentTitle, moveComponent
 } = componentsSlice.actions
 export default componentsSlice.reducer
