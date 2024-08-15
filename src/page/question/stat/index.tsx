@@ -1,10 +1,12 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTitle } from 'ahooks'
 import { Button, Spin, Result } from 'antd'
 import useLoadQuestionData from '@/hooks/useLoadQuestionData'
 import useGetPageInfo from '@/hooks/useGetPageInfo'
 import StatHeader from './StatHeader'
+import ComponentList from './ComponentList'
+import PageStat from './PageStat'
 import styles from './index.module.scss'
 
 const Stat: FC = () => {
@@ -13,6 +15,11 @@ const Stat: FC = () => {
     const { title, isPublished } = useGetPageInfo()
     // 修改标题
     useTitle(`问卷统计 - ${title}`)
+
+    // 状态提升 selectedId type
+    const [selectedComponentId, setSelectedComponentId] = useState('')
+    // 用于判断是单选还是多选。单选 - 右侧显示柱状图；多选 - 右侧显示饼图
+    const [selectedComponentType, setSelectedComponentType] = useState('')
 
     // loading效果
     const LoadingElem = (
@@ -40,8 +47,20 @@ const Stat: FC = () => {
         }
         return (
             <>
-                <div className={styles.left}>左侧</div>
-                <div className={styles.main}>中间</div>
+                <div className={styles.left}>
+                    <ComponentList
+                        selectedComponentId={selectedComponentId}
+                        setSelectedComponentId={setSelectedComponentId}
+                        setSelectedComponentType={setSelectedComponentType}
+                    ></ComponentList>
+                </div>
+                <div className={styles.main}>
+                    <PageStat
+                        selectedComponentId={selectedComponentId}
+                        setSelectedComponentId={setSelectedComponentId}
+                        setSelectedComponentType={setSelectedComponentType}
+                    ></PageStat>
+                </div>
                 <div className={styles.right}>右侧</div>
             </>
         )
