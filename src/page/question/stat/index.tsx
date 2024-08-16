@@ -7,6 +7,7 @@ import useGetPageInfo from '@/hooks/useGetPageInfo'
 import StatHeader from './StatHeader'
 import ComponentList from './ComponentList'
 import PageStat from './PageStat'
+import ChartStat from './ChartStat'
 import styles from './index.module.scss'
 
 const Stat: FC = () => {
@@ -61,7 +62,12 @@ const Stat: FC = () => {
                         setSelectedComponentType={setSelectedComponentType}
                     ></PageStat>
                 </div>
-                <div className={styles.right}>右侧</div>
+                <div className={styles.right}>
+                    <ChartStat
+                        selectedComponentId={selectedComponentId}
+                        selectedComponentType={selectedComponentType}
+                    ></ChartStat>
+                </div>
             </>
         )
     } 
