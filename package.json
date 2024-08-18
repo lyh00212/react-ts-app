@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": " prettier --write 'src/**/*.+(js|ts|jsx|tsx)' "
@@ -46,6 +46,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "prettier": "^3.3.2",
+    "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.77.8",
     "typescript": "^5.2.2",
     "vite": "^5.3.1"

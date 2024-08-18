@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
 import MainLayout from '@/layouts/MainLayout'
@@ -8,11 +8,14 @@ import Home from '@/page/Home'
 import Login from '@/page/Login'
 import NotFound from '@/page/NotFound'
 import Register from '@/page/Register'  
-import Stat from '@/page/question/stat'
-import Edit from '@/page/question/edit'
+// import Stat from '@/page/question/stat'
+// import Edit from '@/page/question/edit'
 import List from '@/page/manage/List'
 import Star from '@/page/manage/Star'
 import Trash from '@/page/manage/Trash'
+
+const Edit = lazy(() => import('@/page/question/edit'))
+const Stat = lazy(() => import('@/page/question/stat'))
 
 const router = createBrowserRouter([
     {
