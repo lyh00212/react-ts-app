@@ -10,9 +10,10 @@
     "lint:fix": "eslint src --fix && npm format",
     "preview": "vite preview",
     "format": " prettier --write 'src/**/*.+(js|ts|jsx|tsx)' ",
-    "test": "vitest",
+    "test": "vitest --no-watch",
     "test:ui": "vitest --ui --coverage",
-    "test:coverage": "vitest --coverage run"
+    "test:coverage": "vitest --coverage run",
+    "prepare": "husky"
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
@@ -53,6 +54,7 @@
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "husky": "^9.1.4",
     "jsdom": "^24.1.1",
     "prettier": "^3.3.2",
     "rollup-plugin-visualizer": "^5.12.0",
