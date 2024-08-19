@@ -9,6 +9,7 @@
       "sourceMap": true,
       "resolveJsonModule": true,
       "esModuleInterop": true,
+      "skipLibCheck": true,
       "lib": ["esnext", "dom"],
       "baseUrl": ".", // 设置基本目录为当前目录
       "paths": {

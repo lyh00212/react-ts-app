@@ -6,6 +6,6 @@ export type QuestionTextareaPropsType = {
 }
 
 export const QuestionTextareaDefaultProps: QuestionTextareaPropsType = {
-    title: '请输入标题',
+    title: '输入框标题',
     placeholder: '请输入...'
 }

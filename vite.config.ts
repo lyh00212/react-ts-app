@@ -32,5 +32,27 @@ export default defineConfig({
                 changeOrigin: true,
             }
         }
-    }
+    },
+    // build: {
+    //     rollupOptions: {
+    //         output: {
+    //             manualChunks(id) {
+    //                 // 将 antd 分割到一个单独的 chunk
+    //                 if (id.includes('/antd/')) {
+    //                     return 'antd-chunk';
+    //                 }
+        
+    //                 // 将 react-dom 分割到一个单独的 chunk
+    //                 if (id.includes('/react-dom/')) {
+    //                     return 'reactDom-chunk';
+    //                 }
+        
+    //                 // 将其他 node_modules 分割到一个 vendors chunk
+    //                 if (id.includes('/node_modules/')) {
+    //                     return 'vendors-chunk';
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 })
