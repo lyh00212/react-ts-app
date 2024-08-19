@@ -5,7 +5,6 @@ import { useRequest } from 'ahooks'
 import { getComponentStatService } from '@/services/stat'
 import { getComponentConfByType } from '@/components/QuestionComponents/index'
 
-
 const { Title } = Typography
 
 type PropsType = {
@@ -22,11 +21,12 @@ const ChartStat: FC<PropsType> = (props: PropsType) => {
         async (questionId, componentId) => {
             const res = await getComponentStatService(questionId, componentId)
             return res
-        }, {
+        },
+        {
             manual: true,
             onSuccess(res) {
                 setStat(res.stat)
-            }
+            },
         }
     )
 

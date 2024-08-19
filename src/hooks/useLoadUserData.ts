@@ -9,19 +9,17 @@ function useLoadUserData() {
     const [waitingUserData, setWaitingUserData] = useState(true)
     const dispatch = useDispatch()
     // ajax 加载用户信息
-    const { run } = useRequest(getUserInfoService,
-        {
-            manual: true,
-            onSuccess(result) {
-                const { username, nickname } = result
-                // 将信息存储到redux中
-                dispatch(loginReducer({username, nickname }))
-            },
-            onFinally() {
-                setWaitingUserData(false)
-            }
-        }
-    )
+    const { run } = useRequest(getUserInfoService, {
+        manual: true,
+        onSuccess(result) {
+            const { username, nickname } = result
+            // 将信息存储到redux中
+            dispatch(loginReducer({ username, nickname }))
+        },
+        onFinally() {
+            setWaitingUserData(false)
+        },
+    })
     // 判断当前redux中store是否已经存在用户信息
     const { username } = useGetUserInfo()
     useEffect(() => {

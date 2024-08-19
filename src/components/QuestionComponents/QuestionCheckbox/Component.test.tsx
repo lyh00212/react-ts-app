@@ -1,7 +1,7 @@
 import React from 'react'
-import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
-import '@testing-library/jest-dom';
+import { describe, expect, it } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
 
 import Component from './Component'
 
@@ -23,10 +23,10 @@ describe('questionCheckbox', () => {
         const list = [
             { value: 'v1', text: 't1', checked: false },
             { value: 'v2', text: 't2', checked: true },
-            { value: 'v3', text: 't3', checked: true }
+            { value: 'v3', text: 't3', checked: true },
         ]
         render(<Component title="hello" list={list} />)
-        const p = screen.getByText("hello")
+        const p = screen.getByText('hello')
         expect(p).toBeInTheDocument()
 
         const checkbox1 = screen.getByDisplayValue(`v1`)

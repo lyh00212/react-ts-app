@@ -1,9 +1,6 @@
 import React, { FC, useState } from 'react'
 import cs from 'classnames/bind'
-import { 
-    Typography, Empty, Table, Tag,
-    Button, Space, Modal, message, Spin 
-} from 'antd'
+import { Typography, Empty, Table, Tag, Button, Space, Modal, message, Spin } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { useTitle, useRequest } from 'ahooks'
 import ListSearch from '@/components/ListSearch'
@@ -16,7 +13,7 @@ const classnames = cs.bind(styles)
 const { Title } = Typography
 const { confirm } = Modal
 const Trash: FC = () => {
-    useTitle("问卷星 - 回收站")
+    useTitle('问卷星 - 回收站')
 
     const { data = {}, loading, refresh } = useLoadQuestionListData({ isDeleted: true })
     const { list = [], total = 0 } = data
@@ -35,7 +32,7 @@ const Trash: FC = () => {
                 message.success('恢复成功')
                 refresh() // 手动刷新列表
                 setSelectedIds([])
-            }
+            },
         }
     )
     // 批量删除
@@ -48,7 +45,7 @@ const Trash: FC = () => {
                 message.success('删除成功')
                 refresh()
                 setSelectedIds([])
-            }
+            },
         }
     )
 
@@ -62,7 +59,7 @@ const Trash: FC = () => {
             dataIndex: 'isPublished',
             render: (isPublished: boolean) => {
                 return isPublished ? <Tag color="processing">已发布</Tag> : <Tag>未发布</Tag>
-            }
+            },
         },
         {
             title: '答卷',
@@ -71,7 +68,7 @@ const Trash: FC = () => {
         {
             title: '创建时间',
             dataIndex: 'createdAt',
-        }
+        },
     ]
     const rowSelection = {
         onChange: (selectedRowKeys: React.Key[]) => {
@@ -87,16 +84,20 @@ const Trash: FC = () => {
             cancelText: '取消',
             onOk: () => {
                 deleteQuestion()
-            }
+            },
         })
     }
 
     const TableElem = (
         <>
-            <div style={{ marginBottom: '16px'}}>
+            <div style={{ marginBottom: '16px' }}>
                 <Space>
-                    <Button type='primary' disabled={selectedIds.length === 0} onClick={recover}>恢复</Button>
-                    <Button danger disabled={selectedIds.length === 0} onClick={del}>彻底删除</Button>
+                    <Button type="primary" disabled={selectedIds.length === 0} onClick={recover}>
+                        恢复
+                    </Button>
+                    <Button danger disabled={selectedIds.length === 0} onClick={del}>
+                        彻底删除
+                    </Button>
                 </Space>
             </div>
             <Table
@@ -124,18 +125,16 @@ const Trash: FC = () => {
             </div>
             {/* 问卷列表 */}
             <div className={styles.content}>
-                { loading && (
+                {loading && (
                     <div style={{ textAlign: 'center' }}>
                         <Spin />
                     </div>
                 )}
-                { !loading && list.length === 0 && <Empty description="暂无数据" /> }
-                { !loading && list.length > 0 && TableElem }
+                {!loading && list.length === 0 && <Empty description="暂无数据" />}
+                {!loading && list.length > 0 && TableElem}
             </div>
             <div className={styles.footer}>
-                <ListPage
-                    total={total}
-                ></ListPage>
+                <ListPage total={total}></ListPage>
             </div>
         </div>
     )

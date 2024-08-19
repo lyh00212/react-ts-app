@@ -4,13 +4,23 @@ import QuestionTitleConf, { QuestionTitlePropsType } from './QuestionTitle'
 import QuestionParagraphyConf, { QuestionParagraphyPropsType } from './QuestionParagraph'
 import QuestionInfoConf, { QuestionInfoPropsType } from './QuestionInfo'
 import QuestionTextareaConf, { QuestionTextareaPropsType } from './QuestionTextarea'
-import QuestionRadioConf, { QuestionRadioPropsType, QuestionRadioStatPropsType } from './QuestionRadio'
-import QuestionCheckboxConf, { QuestionCheckboxPropsType, QuestionCheckboxStatPropsType } from './QuestionCheckbox'
+import QuestionRadioConf, {
+    QuestionRadioPropsType,
+    QuestionRadioStatPropsType,
+} from './QuestionRadio'
+import QuestionCheckboxConf, {
+    QuestionCheckboxPropsType,
+    QuestionCheckboxStatPropsType,
+} from './QuestionCheckbox'
 
 // 统一各个组件的 prop type
-export type ComponentPropsType = QuestionInputPropsType & QuestionTitlePropsType & 
-    QuestionParagraphyPropsType & QuestionInfoPropsType & QuestionTextareaPropsType &
-    QuestionRadioPropsType & QuestionCheckboxPropsType
+export type ComponentPropsType = QuestionInputPropsType &
+    QuestionTitlePropsType &
+    QuestionParagraphyPropsType &
+    QuestionInfoPropsType &
+    QuestionTextareaPropsType &
+    QuestionRadioPropsType &
+    QuestionCheckboxPropsType
 
 // 统一各个组件的统计prop类型
 export type ComponentStatPropsType = QuestionRadioStatPropsType & QuestionCheckboxStatPropsType
@@ -41,19 +51,19 @@ export const componentConfGroup = [
     {
         groupId: 'chooseGroup',
         groupName: '用户选择',
-        components: [QuestionRadioConf, QuestionCheckboxConf]
-    }
+        components: [QuestionRadioConf, QuestionCheckboxConf],
+    },
 ]
 
 // 全部的组件配置的列表
 const componentConfList: ComponentConfType[] = [
-    QuestionInputConf, 
-    QuestionTitleConf, 
+    QuestionInputConf,
+    QuestionTitleConf,
     QuestionParagraphyConf,
     QuestionInfoConf,
     QuestionTextareaConf,
     QuestionRadioConf,
-    QuestionCheckboxConf
+    QuestionCheckboxConf,
 ]
 
 export function getComponentConfByType(type: string) {

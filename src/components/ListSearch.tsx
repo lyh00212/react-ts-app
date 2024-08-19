@@ -18,16 +18,16 @@ const ListSearch: FC = () => {
     const handleSearch = (value: string) => {
         nav({
             pathname,
-            search: `${LIST_SEARCH_PARAM_KEY}=${value}`
+            search: `${LIST_SEARCH_PARAM_KEY}=${value}`,
         })
     }
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value)
     }
     return (
-        <Search 
+        <Search
             allowClear
-            placeholder="请输入关键字" 
+            placeholder="请输入关键字"
             value={value}
             onChange={handleChange}
             onSearch={handleSearch}

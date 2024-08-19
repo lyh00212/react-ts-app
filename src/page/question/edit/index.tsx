@@ -16,7 +16,7 @@ const Edit: FC = () => {
     // 修改标题
     const { title } = useGetPageInfo()
     useTitle(`编辑问卷 - ${title}`)
-    
+
     function clearSelectedId() {
         dispatch(changeSelectedId(''))
     }
@@ -33,7 +33,7 @@ const Edit: FC = () => {
                     </div>
                     <div className={styles.main} onClick={clearSelectedId}>
                         <div className={styles['canvas-wrapper']}>
-                            <EditCanvas loading={loading}/>
+                            <EditCanvas loading={loading} />
                         </div>
                     </div>
                     <div className={styles.right}>

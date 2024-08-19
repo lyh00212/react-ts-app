@@ -27,7 +27,7 @@ const LeftPanel: FC = () => {
             children: <Layers />,
         },
     ]
-    return <Tabs defaultActiveKey='componentLib' items={tabsItems}></Tabs>
+    return <Tabs defaultActiveKey="componentLib" items={tabsItems}></Tabs>
 }
 
 export default LeftPanel

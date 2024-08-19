@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Button, Typography } from 'antd'
 import axios from 'axios'
 import { MANAGE_INDEX_PATHNAME } from '@/router/index'

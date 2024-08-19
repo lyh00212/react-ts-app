@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import cloneDeep from 'lodash.clonedeep'
 import { nanoid } from 'nanoid'
 import { arrayMove } from '@dnd-kit/sortable'
@@ -22,7 +22,7 @@ export type ComponentsStateType = {
 const INIT_STATE: ComponentsStateType = {
     selectedId: '',
     componentList: [],
-    copiedComponent: null
+    copiedComponent: null,
 }
 
 export const componentsSlice = createSlice({
@@ -30,7 +30,10 @@ export const componentsSlice = createSlice({
     initialState: INIT_STATE,
     reducers: {
         // 重置所有数据
-        resetComponents: (state: ComponentsStateType, action: PayloadAction<ComponentsStateType>) => {
+        resetComponents: (
+            state: ComponentsStateType,
+            action: PayloadAction<ComponentsStateType>
+        ) => {
             return action.payload
         },
         // 修改selectedId
@@ -44,7 +47,7 @@ export const componentsSlice = createSlice({
         },
         // 修改组件属性
         changeComponentProps: (
-            state: ComponentsStateType, 
+            state: ComponentsStateType,
             action: PayloadAction<{ fe_id: string; newProps: ComponentPropsType }>
         ) => {
             const { fe_id, newProps } = action.payload
@@ -53,7 +56,7 @@ export const componentsSlice = createSlice({
             if (curComp) {
                 curComp.props = {
                     ...curComp.props,
-                    ...newProps
+                    ...newProps,
                 }
             }
         },
@@ -68,7 +71,7 @@ export const componentsSlice = createSlice({
         },
         // 隐藏/显示 组件
         changeComponentHidden: (
-            state: ComponentsStateType, 
+            state: ComponentsStateType,
             action: PayloadAction<{ fe_id: string; isHidden: boolean }>
         ) => {
             const { componentList = [], selectedId } = state
@@ -135,7 +138,7 @@ export const componentsSlice = createSlice({
         },
         // 修改组件标题
         changeComponentTitle: (
-            state: ComponentsStateType, 
+            state: ComponentsStateType,
             action: PayloadAction<{ fe_id: string; title: string }>
         ) => {
             const { fe_id, title } = action.payload
@@ -144,21 +147,30 @@ export const componentsSlice = createSlice({
         },
         // 移动组件位置
         moveComponent: (
-            state: ComponentsStateType, 
-            action: PayloadAction<{oldIndex: number; newIndex: number}>
+            state: ComponentsStateType,
+            action: PayloadAction<{ oldIndex: number; newIndex: number }>
         ) => {
             const { oldIndex, newIndex } = action.payload
             const { componentList: curComponentList } = state
             // 使用dnd-kit的arrayMove方法改变元素位置
             state.componentList = arrayMove(curComponentList, oldIndex, newIndex)
-        }
-    }
+        },
+    },
 })
 
-export const { 
-    resetComponents, changeSelectedId, addComponent, changeComponentProps,
-    removeSelectedComponent, changeComponentHidden, toggleComponentLocked,
-    copySelectedComponent, pasteCopiedComponent, selectPrevComponent,
-    selectNextComponent, changeComponentTitle, moveComponent
+export const {
+    resetComponents,
+    changeSelectedId,
+    addComponent,
+    changeComponentProps,
+    removeSelectedComponent,
+    changeComponentHidden,
+    toggleComponentLocked,
+    copySelectedComponent,
+    pasteCopiedComponent,
+    selectPrevComponent,
+    selectNextComponent,
+    changeComponentTitle,
+    moveComponent,
 } = componentsSlice.actions
 export default componentsSlice.reducer

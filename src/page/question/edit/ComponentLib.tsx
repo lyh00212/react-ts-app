@@ -9,14 +9,17 @@ import styles from './ComponentLib.module.scss'
 const { Title } = Typography
 function genComponent(value: ComponentConfType) {
     const { title, type, Component, defaultProps } = value
+    // eslint-disable-next-line
     const dispatch = useDispatch()
     function handleClick() {
-        dispatch(addComponent({
-            fe_id: nanoid(),
-            title,
-            type,
-            props: defaultProps
-        }))
+        dispatch(
+            addComponent({
+                fe_id: nanoid(),
+                title,
+                type,
+                props: defaultProps,
+            })
+        )
     }
     return (
         <div key={type} className={styles.wrapper} onClick={handleClick}>
@@ -29,23 +32,23 @@ function genComponent(value: ComponentConfType) {
 const Lib: FC = () => {
     return (
         <>
-        {
-            componentConfGroup.map((group, index) => {
+            {componentConfGroup.map((group, index) => {
                 const { groupId, groupName, components } = group
                 return (
                     <div key={groupId}>
-                        <Title 
-                            level={3} 
-                            style={{ 
-                                fontSize: '16px', 
-                                marginTop: index > 0 ? '20px' : '0'
+                        <Title
+                            level={3}
+                            style={{
+                                fontSize: '16px',
+                                marginTop: index > 0 ? '20px' : '0',
                             }}
-                        >{groupName}</Title>
+                        >
+                            {groupName}
+                        </Title>
                         <div>{components.map(v => genComponent(v))}</div>
                     </div>
                 )
-            })
-        }
+            })}
         </>
     )
 }

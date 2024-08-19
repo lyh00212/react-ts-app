@@ -20,22 +20,22 @@ const PropComponent: FC<QuestionInfoPropsType> = (props: QuestionInfoPropsType) 
 
     return (
         <Form
-            layout='vertical'
+            layout="vertical"
             form={form}
             disabled={disabled}
             onValuesChange={handleValueChange}
             initialValues={{ title, desc }}
         >
             <Form.Item
-                label='标题'
-                name='title'
+                label="标题"
+                name="title"
                 rules={[{ required: true, message: '请输入标题' }]}
             >
                 <Input />
             </Form.Item>
-            <Form.Item 
-                label='描述' 
-                name='desc' 
+            <Form.Item
+                label="描述"
+                name="desc"
                 rules={[{ required: true, message: '请输入段落内容' }]}
             >
                 <TextArea />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
 import { useDispatch } from 'react-redux'
@@ -10,17 +10,27 @@ function useLoadQuestionData() {
     const { id = '' } = useParams()
     const dispatch = useDispatch()
     // ajax加载
-    const { data, loading, error, run } = useRequest(async (id: string) => {
-        if (!id) throw new Error('没有问卷 id')
-        const data = await getQuestionService(id)
-        return data
-    }, {
-        manual: true,
-    })
+    const { data, loading, error, run } = useRequest(
+        async (id: string) => {
+            if (!id) throw new Error('没有问卷 id')
+            const data = await getQuestionService(id)
+            return data
+        },
+        {
+            manual: true,
+        }
+    )
     // 根据获取的data设置 redux store
     useEffect(() => {
         if (!data) return
-        const { title = '', desc = '', js = '', css = '', isPublished = false, componentList = [] } = data
+        const {
+            title = '',
+            desc = '',
+            js = '',
+            css = '',
+            isPublished = false,
+            componentList = [],
+        } = data
         // 获取默认的 selectedId
         let selectedId = ''
         if (componentList.length > 0) {

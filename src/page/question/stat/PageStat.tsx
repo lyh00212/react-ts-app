@@ -24,13 +24,14 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
         async () => {
             const res = await getQuestionStatListService(id, { page, pageSize })
             return res
-        }, {
+        },
+        {
             refreshDeps: [id, page, pageSize],
             onSuccess(res) {
                 const { total, list = [] } = res
                 setTotal(total)
                 setList(list)
-            }
+            },
         }
     )
 
@@ -40,19 +41,22 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
         const colTitle = props!.title || title
         return {
             title: (
-                <div 
+                <div
                     style={{ cursor: 'pointer' }}
                     onClick={() => {
                         setSelectedComponentId(fe_id)
                         setSelectedComponentType(type)
                     }}
                 >
-                    <span style={{ color: fe_id === selectedComponentId ? '#1890ff' : 'inherit' }}>{colTitle}</span>
+                    <span style={{ color: fe_id === selectedComponentId ? '#1890ff' : 'inherit' }}>
+                        {colTitle}
+                    </span>
                 </div>
             ),
-            dataIndex: fe_id
+            dataIndex: fe_id,
         }
     })
+    // eslint-disable-next-line
     const dataSource = list.map((item: any) => ({ ...item, key: item._id }))
     const TableElem = (
         <>
@@ -75,10 +79,12 @@ const PageStat: FC<PropsType> = (props: PropsType) => {
     return (
         <div>
             <Title level={3}>答卷数量: {!loading && total}</Title>
-            {
-                loading && <div style={{ textAlign: 'center' }}><Spin /></div>
-            }
-            { !loading && TableElem }
+            {loading && (
+                <div style={{ textAlign: 'center' }}>
+                    <Spin />
+                </div>
+            )}
+            {!loading && TableElem}
         </div>
     )
 }

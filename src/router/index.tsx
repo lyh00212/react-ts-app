@@ -7,7 +7,7 @@ import QuestionLayout from '@/layouts/QuestionLayout'
 import Home from '@/page/Home'
 import Login from '@/page/Login'
 import NotFound from '@/page/NotFound'
-import Register from '@/page/Register'  
+import Register from '@/page/Register'
 // import Stat from '@/page/question/stat'
 // import Edit from '@/page/question/edit'
 import List from '@/page/manage/List'
@@ -24,15 +24,15 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home />
+                element: <Home />,
             },
             {
                 path: 'login',
-                element: <Login />
+                element: <Login />,
             },
             {
                 path: 'register',
-                element: <Register />
+                element: <Register />,
             },
             {
                 path: 'manage',
@@ -40,23 +40,23 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: 'list',
-                        element: <List />
+                        element: <List />,
                     },
                     {
                         path: 'star',
-                        element: <Star />
+                        element: <Star />,
                     },
                     {
                         path: 'trash',
-                        element: <Trash />
-                    }
-                ]
+                        element: <Trash />,
+                    },
+                ],
             },
             {
                 path: '*',
-                element: <NotFound />
+                element: <NotFound />,
             },
-        ]
+        ],
     },
     {
         path: 'question',
@@ -64,13 +64,13 @@ const router = createBrowserRouter([
         children: [
             {
                 path: 'edit/:id',
-                element: <Edit />
+                element: <Edit />,
             },
             {
                 path: 'stat/:id',
-                element: <Stat />
-            }
-        ]
+                element: <Stat />,
+            },
+        ],
     },
 ])
 

@@ -37,12 +37,11 @@ const Stat: FC = () => {
                         status="warning"
                         title="该页面尚未发布"
                         extra={
-                            <Button type='primary' onClick={() => nav(-1)}>
+                            <Button type="primary" onClick={() => nav(-1)}>
                                 返回
                             </Button>
                         }
-                    >
-                    </Result>
+                    ></Result>
                 </div>
             )
         }
@@ -70,14 +69,14 @@ const Stat: FC = () => {
                 </div>
             </>
         )
-    } 
+    }
 
     return (
         <div className={styles.container}>
             <StatHeader />
             <div className={styles['content-wrapper']}>
-                { loading && LoadingElem }
-                { !loading && <div className={styles.content}>{genContentElem()}</div> }
+                {loading && LoadingElem}
+                {!loading && <div className={styles.content}>{genContentElem()}</div>}
             </div>
         </div>
     )

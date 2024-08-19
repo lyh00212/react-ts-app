@@ -11,16 +11,14 @@ const Component: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType) =>
             <Paragraph strong>{title}</Paragraph>
             <Radio.Group value={value}>
                 <Space direction={isVertical ? 'vertical' : 'horizontal'}>
-                    {
-                        options.map(item => {
-                            const { text, value } = item
-                            return (
-                                <Radio key={value} value={value}>
-                                    {text}
-                                </Radio>
-                            )
-                        })
-                    }
+                    {options.map(item => {
+                        const { text, value } = item
+                        return (
+                            <Radio key={value} value={value}>
+                                {text}
+                            </Radio>
+                        )
+                    })}
                 </Space>
             </Radio.Group>
         </div>

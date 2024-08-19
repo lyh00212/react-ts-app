@@ -10,7 +10,7 @@ import { removeToken } from '@/utils/user-token'
 import useGetUserInfo from '@/hooks/useGetUserInfo'
 import { logoutReducer } from '@/store/userReducer'
 
-const UserInfo = () => {
+const UserInfo: FC = () => {
     const nav = useNavigate()
     const dispatch = useDispatch()
     // const { data } = useRequest(getUserInfoService)
@@ -28,16 +28,12 @@ const UserInfo = () => {
                 <UserOutlined />
                 {nickname}
             </span>
-            <Button type="link" onClick={logout}>退出</Button>
+            <Button type="link" onClick={logout}>
+                退出
+            </Button>
         </>
     )
-    const Login = (
-        <Link to={LOGIN_PATHNAME}>登录</Link>
-    )
-    return (
-        <div>
-            {username ? UserInfo : Login}
-        </div>
-    )
+    const Login = <Link to={LOGIN_PATHNAME}>登录</Link>
+    return <div>{username ? UserInfo : Login}</div>
 }
 export default UserInfo

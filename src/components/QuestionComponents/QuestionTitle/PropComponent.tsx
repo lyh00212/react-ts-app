@@ -18,20 +18,20 @@ const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
 
     return (
         <Form
-            layout='vertical'
+            layout="vertical"
             form={form}
             disabled={disabled}
             onValuesChange={handleValueChange}
             initialValues={{ text, level, isCenter }}
         >
-            <Form.Item 
-                label='标题内容' 
-                name='text' 
+            <Form.Item
+                label="标题内容"
+                name="text"
                 rules={[{ required: true, message: '请输入标题内容' }]}
             >
                 <Input />
             </Form.Item>
-            <Form.Item label='层级' name='level'>
+            <Form.Item label="层级" name="level">
                 <Select
                     options={[
                         { value: 1, text: 1 },
@@ -41,7 +41,7 @@ const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
                 ></Select>
             </Form.Item>
             {/* valuePropName：checkbox没有value属性，只有checked属性，所以需要使用valuePropName指定表单取值的字段 */}
-            <Form.Item name='isCenter' valuePropName='checked'>
+            <Form.Item name="isCenter" valuePropName="checked">
                 <Checkbox>居中显示</Checkbox>
             </Form.Item>
         </Form>

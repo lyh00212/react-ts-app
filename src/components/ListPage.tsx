@@ -1,11 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import { Pagination } from 'antd'
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom'
-import { 
-    LIST_PAGE_SIZE,
-    LIST_PAGE_PARAM_KEY,
-    LIST_PAGE_SIZE_PARAM_KEY
-} from '@/constant/index'
+import { LIST_PAGE_SIZE, LIST_PAGE_PARAM_KEY, LIST_PAGE_SIZE_PARAM_KEY } from '@/constant/index'
 
 type PropsType = {
     total: number
@@ -20,7 +16,8 @@ const ListPage: FC<PropsType> = (props: PropsType) => {
     const { total } = props
     useEffect(() => {
         const page = parseInt(searchParams.get(LIST_PAGE_PARAM_KEY) || '') || 1
-        const pageSize = parseInt(searchParams.get(LIST_PAGE_SIZE_PARAM_KEY) || '') || LIST_PAGE_SIZE
+        const pageSize =
+            parseInt(searchParams.get(LIST_PAGE_SIZE_PARAM_KEY) || '') || LIST_PAGE_SIZE
         setCurrent(page)
         setPageSize(pageSize)
     }, [searchParams])
@@ -29,11 +26,11 @@ const ListPage: FC<PropsType> = (props: PropsType) => {
         searchParams.set(LIST_PAGE_SIZE_PARAM_KEY, pageSize.toString())
         nav({
             pathname,
-            search: searchParams.toString()
+            search: searchParams.toString(),
         })
     }
     return (
-        <Pagination 
+        <Pagination
             current={current}
             pageSize={pageSize}
             total={total}

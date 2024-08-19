@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type PageInfoType = {
     title: string
@@ -24,8 +24,8 @@ const pageInfoSlice = createSlice({
         // 修改标题
         changePageTitle: (state: PageInfoType, action: PayloadAction<string>) => {
             state.title = action.payload
-        }
-    }
+        },
+    },
 })
 
 export const { resetPageInfo, changePageTitle } = pageInfoSlice.actions

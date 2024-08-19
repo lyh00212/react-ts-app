@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit'
 // redux-undo 用于撤销重做功能
 import undoable, { excludeAction, StateWithHistory } from 'redux-undo'
-import userReducer, { UserStateType } from "./userReducer";
+import userReducer, { UserStateType } from './userReducer'
 import componentsReducer, { ComponentsStateType } from './componentsReducer'
-import pageInfoReducer, { PageInfoType } from "./pageInfoReducer";
+import pageInfoReducer, { PageInfoType } from './pageInfoReducer'
 
 export type StateType = {
     user: UserStateType
@@ -24,9 +24,9 @@ export default configureStore({
                 'components/resetComponents',
                 'components/changeSelectedId',
                 'components/selectPrevComponent',
-                'components/selectNextComponent'
-            ])
+                'components/selectNextComponent',
+            ]),
         }),
-        pageInfo: pageInfoReducer
+        pageInfo: pageInfoReducer,
     },
 })

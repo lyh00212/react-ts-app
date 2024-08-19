@@ -1,8 +1,5 @@
 import React, { FC } from 'react'
-import { 
-    Typography, Space, Form,
-    Input, Button, message 
-} from 'antd'
+import { Typography, Space, Form, Input, Button, message } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { Link, useNavigate } from 'react-router-dom'
@@ -14,17 +11,19 @@ const { Title } = Typography
 const Register: FC = () => {
     const nav = useNavigate()
     const { run } = useRequest(
-        async (values) => {
+        async values => {
             const { username, password, nickname } = values
             await registerService(username, password, nickname)
-        }, {
+        },
+        {
             manual: true,
             onSuccess() {
                 message.success('注册成功')
                 nav(LOGIN_PATHNAME)
-            }
+            },
         }
     )
+    // eslint-disable-next-line
     const onFinish = (values: any) => {
         run(values)
     }
@@ -39,13 +38,9 @@ const Register: FC = () => {
                 </Space>
             </div>
             <div>
-                <Form
-                    labelCol={{ span: 7 }}
-                    wrapperCol={{ span: 16 }}
-                    onFinish={onFinish}
-                >
-                    <Form.Item 
-                        label="用户名" 
+                <Form labelCol={{ span: 7 }} wrapperCol={{ span: 16 }} onFinish={onFinish}>
+                    <Form.Item
+                        label="用户名"
                         name="username"
                         rules={[
                             { required: true, message: '请输入用户名' },
@@ -55,19 +50,19 @@ const Register: FC = () => {
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item 
-                        label="密码" 
+                    <Form.Item
+                        label="密码"
                         name="password"
                         rules={[{ required: true, message: '请输入密码' }]}
                     >
                         <Input.Password />
                     </Form.Item>
-                    <Form.Item 
-                        label="确认密码" 
+                    <Form.Item
+                        label="确认密码"
                         name="confirm"
                         dependencies={['password']} // 依赖于 password，password变化，会重新触发 validator
                         rules={[
-                            { required: true, message: '请输入密码'},
+                            { required: true, message: '请输入密码' },
                             ({ getFieldValue }) => ({
                                 validator(_, value) {
                                     if (!value || getFieldValue('password') === value) {
@@ -75,8 +70,8 @@ const Register: FC = () => {
                                     } else {
                                         return Promise.reject(new Error('两次密码不一致'))
                                     }
-                                }
-                            })
+                                },
+                            }),
                         ]}
                     >
                         <Input.Password />

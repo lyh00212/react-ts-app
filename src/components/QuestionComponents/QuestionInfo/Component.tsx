@@ -12,15 +12,13 @@ const QuestionInfo: FC<QuestionInfoPropsType> = (props: QuestionInfoPropsType) =
         <div style={{ textAlign: 'center' }}>
             <Title style={{ fontSize: '24px' }}>{title}</Title>
             <Paragraph>
-                {
-                    descTextList.map((item, index) => (
-                        <span key={index}>
-                            {index > 0 && <br />}
-                            {item}
-                        </span>
-                    ))
-                }
-            </Paragraph>     
+                {descTextList.map((item, index) => (
+                    <span key={index}>
+                        {index > 0 && <br />}
+                        {item}
+                    </span>
+                ))}
+            </Paragraph>
         </div>
     )
 }

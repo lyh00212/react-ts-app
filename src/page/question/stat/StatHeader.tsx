@@ -1,10 +1,6 @@
 import React, { FC, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { 
-    Space, Button, Typography, 
-    Input, Tooltip, message, 
-    Popover 
-} from 'antd'
+import { Space, Button, Typography, Input, Tooltip, message, Popover } from 'antd'
 import type { InputRef } from 'antd'
 import { LeftOutlined, CopyOutlined, QrcodeOutlined } from '@ant-design/icons'
 // 生成二维码的插件
@@ -33,7 +29,7 @@ const StatHeader: FC = () => {
         const url = `http://localhost:3000/question/${id}`
         // 定义二维码组件
         const QRCodeElem = (
-            <div style={{ textAlign: 'center'}}>
+            <div style={{ textAlign: 'center' }}>
                 <QRCode value={url} size={150} />
             </div>
         )
@@ -56,19 +52,17 @@ const StatHeader: FC = () => {
             <div className={styles.header}>
                 <div className={styles.left}>
                     <Space>
-                        <Button 
-                            type='link' 
-                            icon={<LeftOutlined />}
-                            onClick={() => nav(-1)}
-                        >返回</Button>
+                        <Button type="link" icon={<LeftOutlined />} onClick={() => nav(-1)}>
+                            返回
+                        </Button>
                         <Title>{title}</Title>
                     </Space>
                 </div>
-                <div className={styles.main}>
-                    { genLinkAndQRCodeElem() }
-                </div>
+                <div className={styles.main}>{genLinkAndQRCodeElem()}</div>
                 <div className={styles.right}>
-                    <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>编辑问卷</Button>
+                    <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>
+                        编辑问卷
+                    </Button>
                 </div>
             </div>
         </div>

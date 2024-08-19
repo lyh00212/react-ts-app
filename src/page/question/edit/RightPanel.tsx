@@ -8,7 +8,7 @@ import PageSetting from './PageSetting'
 // TS 枚举
 enum TAB_KEYS {
     PROP_KEY = 'prop',
-    SETTING_KEY = 'setting'
+    SETTING_KEY = 'setting',
 }
 
 const RightPanel: FC = () => {
@@ -34,7 +34,7 @@ const RightPanel: FC = () => {
                     属性
                 </span>
             ),
-            children: <ComponentProp />
+            children: <ComponentProp />,
         },
         {
             key: TAB_KEYS.SETTING_KEY,
@@ -44,7 +44,7 @@ const RightPanel: FC = () => {
                     页面设置
                 </span>
             ),
-            children: <PageSetting />
+            children: <PageSetting />,
         },
     ]
     return <Tabs activeKey={activeKey} items={tabsItems} onChange={changeTabs}></Tabs>

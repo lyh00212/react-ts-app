@@ -12,7 +12,7 @@ describe('questionTitle', () => {
         expect(h).toBeInTheDocument()
     })
     it('传入属性', () => {
-        render(<Component text='hello' level={2} isCenter={true} />)
+        render(<Component text="hello" level={2} isCenter={true} />)
         const h = screen.getByText('hello')
         expect(h).toBeInTheDocument()
         // toBeTruthy: 判断布尔值是否为true；toBeFalsy：判断布尔值是否为false
@@ -22,4 +22,3 @@ describe('questionTitle', () => {
         expect(style.textAlign).toBe('center')
     })
 })
-

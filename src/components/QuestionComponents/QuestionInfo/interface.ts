@@ -9,5 +9,5 @@ export type QuestionInfoPropsType = {
 
 export const QuestionInfoDefaultProps: QuestionInfoPropsType = {
     title: '问卷标题',
-    desc: '问卷描述'
+    desc: '问卷描述',
 }

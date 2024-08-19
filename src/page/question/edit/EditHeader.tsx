@@ -35,7 +35,7 @@ const TitleElem: FC = () => {
     return (
         <Space>
             <Title>{title}</Title>
-            <Button icon={<EditOutlined />} type='text' onClick={() => setEditState(true)}></Button>
+            <Button icon={<EditOutlined />} type="text" onClick={() => setEditState(true)}></Button>
         </Space>
     )
 }
@@ -51,15 +51,19 @@ const SaveButton: FC = () => {
             await updateQuestionService(id, { ...pageInfo, componentList })
         },
         {
-            manual: true
+            manual: true,
         }
     )
     // 自动保存(useDebounceEffect： 带有防抖效果的useEffect。下面代码的意思：在1s内，如果componentList或pageInfo有变化，则执行save函数)
-    useDebounceEffect(() => {
-        save()
-    }, [componentList, pageInfo], {
-        wait: 1000
-    })
+    useDebounceEffect(
+        () => {
+            save()
+        },
+        [componentList, pageInfo],
+        {
+            wait: 1000,
+        }
+    )
     // 快捷键
     useKeyPress(['ctrl.s', 'meta.s'], (event: KeyboardEvent) => {
         // 取消浏览器事件默认行为（ctrl+s时，会下载页面）
@@ -67,7 +71,11 @@ const SaveButton: FC = () => {
         if (!loading) save()
     })
 
-    return <Button onClick={save} disabled={loading} icon={loading ? <LoadingOutlined /> : null}>保存</Button>
+    return (
+        <Button onClick={save} disabled={loading} icon={loading ? <LoadingOutlined /> : null}>
+            保存
+        </Button>
+    )
 }
 
 // 发布按钮
@@ -79,14 +87,11 @@ const PublishButton: FC = () => {
     const { loading, run: pub } = useRequest(
         async () => {
             if (!id) return
-            await updateQuestionService(
-                id, 
-                { 
-                    ...pageInfo, 
-                    componentList,
-                    isPublished: true // 标志着问卷已经被发布
-                }
-            )
+            await updateQuestionService(id, {
+                ...pageInfo,
+                componentList,
+                isPublished: true, // 标志着问卷已经被发布
+            })
         },
         {
             manual: true,
@@ -94,10 +99,14 @@ const PublishButton: FC = () => {
                 message.success('发布成功')
                 // 发布成功，跳转到统计页面
                 nav('/question/stat/' + id)
-            }
+            },
         }
     )
-    return <Button type='primary' onClick={pub} disabled={loading}>发布</Button>
+    return (
+        <Button type="primary" onClick={pub} disabled={loading}>
+            发布
+        </Button>
+    )
 }
 
 // 编辑器头部
@@ -108,7 +117,7 @@ const EditHeader: FC = () => {
             <div className={styles.header}>
                 <div className={styles.left}>
                     <Space>
-                        <Button type='link' icon={<LeftOutlined />} onClick={() => nav(-1)}>
+                        <Button type="link" icon={<LeftOutlined />} onClick={() => nav(-1)}>
                             返回
                         </Button>
                         <TitleElem />

@@ -2,22 +2,35 @@ import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { ActionCreators as UndoActionCreators } from 'redux-undo'
 import { Button, Space, Tooltip } from 'antd'
-import { 
-    DeleteOutlined, EyeInvisibleOutlined,
-    LockOutlined, CopyOutlined, BlockOutlined,
-    UpOutlined, DownOutlined, UndoOutlined,
-    RedoOutlined
+import {
+    DeleteOutlined,
+    EyeInvisibleOutlined,
+    LockOutlined,
+    CopyOutlined,
+    BlockOutlined,
+    UpOutlined,
+    DownOutlined,
+    UndoOutlined,
+    RedoOutlined,
 } from '@ant-design/icons'
 import useGetComponentInfo from '@/hooks/useGetComponentInfo'
-import { 
-    removeSelectedComponent, changeComponentHidden,
-    toggleComponentLocked, copySelectedComponent,
-    pasteCopiedComponent, moveComponent
+import {
+    removeSelectedComponent,
+    changeComponentHidden,
+    toggleComponentLocked,
+    copySelectedComponent,
+    pasteCopiedComponent,
+    moveComponent,
 } from '@/store/componentsReducer'
 
 const EditToolBar: FC = () => {
     const dispatch = useDispatch()
-    const { selectedId, componentList = [], selectedComponent, copiedComponent } = useGetComponentInfo()
+    const {
+        selectedId,
+        componentList = [],
+        selectedComponent,
+        copiedComponent,
+    } = useGetComponentInfo()
     const { isLocked } = selectedComponent || {}
 
     // 判断当前选中元素是否为第一个或者最后一个
@@ -67,59 +80,55 @@ const EditToolBar: FC = () => {
     return (
         <Space>
             <Tooltip title="删除">
-                <Button shape='circle' icon={<DeleteOutlined />} onClick={handleDelete}></Button>
+                <Button shape="circle" icon={<DeleteOutlined />} onClick={handleDelete}></Button>
             </Tooltip>
             <Tooltip title="隐藏">
-                <Button shape='circle' icon={<EyeInvisibleOutlined />} onClick={handleHidden}></Button>
+                <Button
+                    shape="circle"
+                    icon={<EyeInvisibleOutlined />}
+                    onClick={handleHidden}
+                ></Button>
             </Tooltip>
             <Tooltip title="锁定">
-                <Button 
-                    shape='circle' 
-                    icon={<LockOutlined />} 
+                <Button
+                    shape="circle"
+                    icon={<LockOutlined />}
                     type={isLocked ? 'primary' : 'default'}
                     onClick={handleLock}
                 ></Button>
             </Tooltip>
             <Tooltip title="复制">
-                <Button shape='circle' icon={<CopyOutlined />} onClick={handleCopy}></Button>
+                <Button shape="circle" icon={<CopyOutlined />} onClick={handleCopy}></Button>
             </Tooltip>
             <Tooltip title="粘贴">
-                <Button 
-                    shape='circle' 
-                    icon={<BlockOutlined />} 
+                <Button
+                    shape="circle"
+                    icon={<BlockOutlined />}
                     disabled={!copiedComponent}
                     onClick={handlePaste}
                 ></Button>
             </Tooltip>
             <Tooltip title="上移">
-                <Button 
-                    shape='circle' 
-                    icon={<UpOutlined />} 
+                <Button
+                    shape="circle"
+                    icon={<UpOutlined />}
                     disabled={isFirst}
                     onClick={moveUp}
                 ></Button>
             </Tooltip>
             <Tooltip title="下移">
-                <Button 
-                    shape='circle' 
-                    icon={<DownOutlined />} 
+                <Button
+                    shape="circle"
+                    icon={<DownOutlined />}
                     disabled={isLast}
                     onClick={moveDown}
                 ></Button>
             </Tooltip>
             <Tooltip title="撤销">
-                <Button 
-                    shape='circle' 
-                    icon={<UndoOutlined />} 
-                    onClick={undo}
-                ></Button>
+                <Button shape="circle" icon={<UndoOutlined />} onClick={undo}></Button>
             </Tooltip>
             <Tooltip title="重做">
-                <Button 
-                    shape='circle' 
-                    icon={<RedoOutlined />} 
-                    onClick={redo}
-                ></Button>
+                <Button shape="circle" icon={<RedoOutlined />} onClick={redo}></Button>
             </Tooltip>
         </Space>
     )

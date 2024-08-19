@@ -1,11 +1,13 @@
-import { useKeyPress } from "ahooks";
-import { useDispatch } from "react-redux";
+import { useKeyPress } from 'ahooks'
+import { useDispatch } from 'react-redux'
 import { ActionCreators as UndoActionCreators } from 'redux-undo'
-import { 
-    removeSelectedComponent, copySelectedComponent,
-    pasteCopiedComponent, selectPrevComponent,
-    selectNextComponent
-} from "@/store/componentsReducer"
+import {
+    removeSelectedComponent,
+    copySelectedComponent,
+    pasteCopiedComponent,
+    selectPrevComponent,
+    selectNextComponent,
+} from '@/store/componentsReducer'
 
 // 判断光标位置
 function isActiveElementValid() {
@@ -13,7 +15,7 @@ function isActiveElementValid() {
     const activeElem = document.activeElement
     // 返回true表示光标不在input上（没有增加dnd-kit之前 可以这样处理---dnd-kit会给元素加上某些类 导致事件不生效）
     // return activeElem === document.body
-    
+
     // 增加dnd-kit之后的处理方法
     if (activeElem === document.body) return true
     if (activeElem?.matches('div[role="button"]')) return true
@@ -35,7 +37,7 @@ function useBindCanvasKeyPress() {
     // 粘贴
     useKeyPress(['ctrl.v', 'meta.v'], () => {
         if (!isActiveElementValid()) return
-        dispatch((pasteCopiedComponent()))
+        dispatch(pasteCopiedComponent())
     })
     // 选中上一个
     useKeyPress('uparrow', () => {
@@ -48,19 +50,27 @@ function useBindCanvasKeyPress() {
         dispatch(selectNextComponent())
     })
     // 撤销
-    useKeyPress(['ctrl.z', 'meta.z'], () => {
-        if (!isActiveElementValid()) return
-        dispatch(UndoActionCreators.undo())
-    }, {
-        exactMatch: true, // 严格匹配，必须只按了ctrl+z才执行
-    })
+    useKeyPress(
+        ['ctrl.z', 'meta.z'],
+        () => {
+            if (!isActiveElementValid()) return
+            dispatch(UndoActionCreators.undo())
+        },
+        {
+            exactMatch: true, // 严格匹配，必须只按了ctrl+z才执行
+        }
+    )
     // 重做
-    useKeyPress(['ctrl.shift.z', 'meta.shift.z'], () => {
-        if (!isActiveElementValid()) return
-        dispatch(UndoActionCreators.redo())
-    }, {
-        exactMatch: true, // 严格匹配，必须只按了ctrl+shift+z才执行
-    })
+    useKeyPress(
+        ['ctrl.shift.z', 'meta.shift.z'],
+        () => {
+            if (!isActiveElementValid()) return
+            dispatch(UndoActionCreators.redo())
+        },
+        {
+            exactMatch: true, // 严格匹配，必须只按了ctrl+shift+z才执行
+        }
+    )
 }
 
 export default useBindCanvasKeyPress

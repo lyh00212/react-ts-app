@@ -18,20 +18,20 @@ const PropComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType
 
     return (
         <Form
-            layout='vertical'
+            layout="vertical"
             form={form}
             disabled={disabled}
             onValuesChange={handleValueChange}
             initialValues={{ title, placeholder }}
         >
-            <Form.Item 
-                label='标题' 
-                name='title' 
+            <Form.Item
+                label="标题"
+                name="title"
                 rules={[{ required: true, message: '请输入标题' }]}
             >
                 <Input />
             </Form.Item>
-            <Form.Item label='placeholder' name='placeholder'>
+            <Form.Item label="placeholder" name="placeholder">
                 <Input />
             </Form.Item>
         </Form>

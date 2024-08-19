@@ -1,10 +1,10 @@
-import { ComponentInfoType, ComponentsStateType } from "./index";
+import { ComponentInfoType, ComponentsStateType } from './index'
 
-/** 
+/**
  * 获取下一个selectedId
  * @param fe_id 当前选中的id
  * @param componentList 组件列表
-*/
+ */
 export function getNextSelectedId(fe_id: string, componentList: ComponentInfoType[]) {
     const visibleComponentList = componentList.filter(item => !item.isHidden)
     const index = visibleComponentList.findIndex(item => item.fe_id === fe_id)
@@ -19,7 +19,7 @@ export function getNextSelectedId(fe_id: string, componentList: ComponentInfoTyp
     } else {
         if (index + 1 === length) {
             // 要删除最后一个，就要选中上一个
-            newSelectedId = visibleComponentList[index -1].fe_id
+            newSelectedId = visibleComponentList[index - 1].fe_id
         } else {
             // 要删除的不是最后一个，删除以后选中下一个
             newSelectedId = visibleComponentList[index + 1].fe_id

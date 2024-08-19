@@ -1,7 +1,7 @@
 import React from 'react'
-import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
-import '@testing-library/jest-dom';
+import { describe, expect, it } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
 
 import Component from './Component'
 
@@ -22,10 +22,10 @@ describe('questionRadio', () => {
         const opts = [
             { value: 'v1', text: 't1' },
             { value: 'v2', text: 't2' },
-            { value: 'v3', text: 't3' }
+            { value: 'v3', text: 't3' },
         ]
         const value = 'v1'
-        render(<Component title='hello' options={opts} value={value} />)
+        render(<Component title="hello" options={opts} value={value} />)
         const radio = screen.getByText('hello')
         expect(radio).toBeInTheDocument()
         for (let i = 1; i <= 3; i++) {

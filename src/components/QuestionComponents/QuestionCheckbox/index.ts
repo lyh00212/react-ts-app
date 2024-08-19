@@ -1,7 +1,7 @@
-import Component from "./Component";
-import PropComponent from "./PropComponent";
+import Component from './Component'
+import PropComponent from './PropComponent'
 import StatComponent from './StatComponent'
-import { QuestionCheckboxDefaultProps } from "./interface";
+import { QuestionCheckboxDefaultProps } from './interface'
 
 export * from './interface'
 
@@ -11,5 +11,5 @@ export default {
     Component,
     PropComponent,
     defaultProps: QuestionCheckboxDefaultProps,
-    StatComponent
+    StatComponent,
 }

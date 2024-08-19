@@ -13,12 +13,12 @@ const QuestionTitle: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
         return '16px'
     }
     return (
-        <Title 
-            level={level} 
-            style={{ 
-                textAlign: isCenter ? 'center' : 'start', 
-                marginBottom: '0', 
-                fontSize: getFontSize(level) 
+        <Title
+            level={level}
+            style={{
+                textAlign: isCenter ? 'center' : 'start',
+                marginBottom: '0',
+                fontSize: getFontSize(level),
             }}
         >
             {text}

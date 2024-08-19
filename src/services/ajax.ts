@@ -10,7 +10,7 @@ instance.interceptors.request.use(
     config => {
         config.headers['Authorization'] = `Bearer ${getToken()}`
         return config
-    }, 
+    },
     error => Promise.reject(error)
 )
 
@@ -25,6 +25,7 @@ instance.interceptors.response.use(res => {
         }
         throw new Error(msg)
     }
+    // eslint-disable-next-line
     return data as any
 })
 
@@ -36,5 +37,6 @@ export type ResType = {
     msg?: string
 }
 export type ResDataType = {
+    // eslint-disable-next-line
     [key: string]: any
 }

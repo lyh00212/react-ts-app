@@ -7,7 +7,7 @@ import useGetUserInfo from '@/hooks/useGetUserInfo'
 import { HOME_PATHNAME, MANAGE_INDEX_PATHNAME } from '@/router/index'
 
 const { Title } = Typography
- 
+
 const Logo: FC = () => {
     const { username } = useGetUserInfo()
     const [pathname, setPathname] = useState(HOME_PATHNAME)

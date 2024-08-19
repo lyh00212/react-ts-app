@@ -6,10 +6,12 @@ import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
 import useGetComponentInfo from '@/hooks/useGetComponentInfo'
 import SortableContainer from '@/components/DragSortable/SortableContainer'
 import SortableItem from '@/components/DragSortable/SortableItem'
-import { 
-    changeSelectedId, changeComponentTitle,
-    changeComponentHidden, toggleComponentLocked,
-    moveComponent
+import {
+    changeSelectedId,
+    changeComponentTitle,
+    changeComponentHidden,
+    toggleComponentLocked,
+    moveComponent,
 } from '@/store/componentsReducer/index'
 import styles from './Layers.module.scss'
 
@@ -59,8 +61,7 @@ const Layers: FC = () => {
 
     return (
         <SortableContainer items={componentListWithId} onDragEnd={handleDragEnd}>
-        {
-            componentList.map(item => {
+            {componentList.map(item => {
                 const { fe_id, title, isHidden, isLocked } = item
                 // 拼接title的className
                 const titleDefaultClassName = styles.title
@@ -73,15 +74,12 @@ const Layers: FC = () => {
                 return (
                     <SortableItem key={fe_id} id={fe_id}>
                         <div className={styles.wrapper}>
-                            <div 
-                                className={titleClassName} 
-                                onClick={() => handleClick(fe_id)}
-                            >
+                            <div className={titleClassName} onClick={() => handleClick(fe_id)}>
                                 {fe_id === changingTitleId && (
-                                    <Input 
-                                        value={title} 
+                                    <Input
+                                        value={title}
                                         onChange={changeTitle}
-                                        onPressEnter={() => setChangingTitleId('')} 
+                                        onPressEnter={() => setChangingTitleId('')}
                                         onBlur={() => setChangingTitleId('')}
                                     />
                                 )}
@@ -89,19 +87,19 @@ const Layers: FC = () => {
                             </div>
                             <div className={styles.handler}>
                                 <Space>
-                                    <Button 
-                                        size='small'
-                                        shape='circle'
+                                    <Button
+                                        size="small"
+                                        shape="circle"
                                         className={!isHidden ? styles.btn : ''}
-                                        icon={<EyeInvisibleOutlined />} 
+                                        icon={<EyeInvisibleOutlined />}
                                         type={isHidden ? 'primary' : 'text'}
                                         onClick={() => changeHidden(fe_id, !isHidden)}
                                     />
-                                    <Button 
-                                        size='small'
-                                        shape='circle'
+                                    <Button
+                                        size="small"
+                                        shape="circle"
                                         className={!isLocked ? styles.btn : ''}
-                                        icon={<LockOutlined />} 
+                                        icon={<LockOutlined />}
                                         type={isLocked ? 'primary' : 'text'}
                                         onClick={() => changeLocked(fe_id)}
                                     />
@@ -110,8 +108,7 @@ const Layers: FC = () => {
                         </div>
                     </SortableItem>
                 )
-            })
-        }
+            })}
         </SortableContainer>
     )
 }

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type UserStateType = {
     username: string
@@ -15,7 +15,7 @@ export const userSlice = createSlice({
             return action.payload // 设置 username、nickname 到 redux store
         },
         logoutReducer: () => INIT_STATE,
-    }
+    },
 })
 
 export const { loginReducer, logoutReducer } = userSlice.actions

@@ -6,11 +6,11 @@ import { QuestionRadioStatPropsType } from './interface'
 function format(n: number) {
     return (n * 100).toFixed(2)
 }
-const StatComponent: FC<QuestionRadioStatPropsType> = ({ stat = []}) => {
+const StatComponent: FC<QuestionRadioStatPropsType> = ({ stat = [] }) => {
     // count求和
     const sum = useMemo(() => {
         let s = 0
-        stat.forEach(i => s += i.count)
+        stat.forEach(i => (s += i.count))
         return s
     }, [stat])
 

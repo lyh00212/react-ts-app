@@ -9,5 +9,5 @@ export type QuestionParagraphyPropsType = {
 
 export const QuestionParagraphyDefaultProps: QuestionParagraphyPropsType = {
     text: '一行段落',
-    isCenter: false
+    isCenter: false,
 }

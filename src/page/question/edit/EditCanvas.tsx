@@ -35,7 +35,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
     }
     // 绑定快捷键
     useBindCanvasKeyPress()
-    
+
     // SortableContainer 组件的 items 属性，需要每个item都有id
     const componentListWithId = componentList.map(c => {
         return { ...c, id: c.fe_id }
@@ -47,15 +47,18 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
     }
 
     if (loading) {
-        return <div style={{ textAlign: 'center', marginTop: '24px' }}>
-            <Spin />
-        </div>
+        return (
+            <div style={{ textAlign: 'center', marginTop: '24px' }}>
+                <Spin />
+            </div>
+        )
     }
     return (
         <SortableContainer items={componentListWithId} onDragEnd={handleDragEnd}>
             <div className={styles.canvas}>
-                {
-                    componentList.filter(c => !c.isHidden).map(item => {
+                {componentList
+                    .filter(c => !c.isHidden)
+                    .map(item => {
                         const { fe_id, isLocked } = item
                         // 拼接className
                         const wrapperDefaultClassName = styles['component-wrapper']
@@ -64,23 +67,20 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
                         const wrapperClassName = classNames({
                             [wrapperDefaultClassName]: true,
                             [selected]: fe_id === selectedId,
-                            [lockedClassName]: isLocked
+                            [lockedClassName]: isLocked,
                         })
 
                         return (
                             <SortableItem key={fe_id} id={fe_id}>
-                                <div 
+                                <div
                                     className={wrapperClassName}
-                                    onClick={(e) => handleClick(e, fe_id)}
+                                    onClick={e => handleClick(e, fe_id)}
                                 >
-                                    <div className={styles.component}>
-                                        {genComponent(item)}
-                                    </div>
+                                    <div className={styles.component}>{genComponent(item)}</div>
                                 </div>
                             </SortableItem>
                         )
-                    })
-                }
+                    })}
             </div>
         </SortableContainer>
     )

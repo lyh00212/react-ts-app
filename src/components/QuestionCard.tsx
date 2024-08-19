@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react'
 import { Button, Space, Divider, Tag, Popconfirm, message } from 'antd'
-import { 
-    EditOutlined, 
-    LineChartOutlined, 
-    StarOutlined, 
-    CopyOutlined, 
-    DeleteOutlined 
+import {
+    EditOutlined,
+    LineChartOutlined,
+    StarOutlined,
+    CopyOutlined,
+    DeleteOutlined,
 } from '@ant-design/icons'
 import { useNavigate, Link } from 'react-router-dom'
 import { useRequest } from 'ahooks'
@@ -35,7 +35,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
             onSuccess() {
                 setIsStarState(!isStarState)
                 message.success('更新成功')
-            }
+            },
         }
     )
 
@@ -46,10 +46,11 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
         },
         {
             manual: true,
+            // eslint-disable-next-line
             onSuccess(result: any) {
                 message.success('复制成功')
                 nav(`/question/edit/${result.id}`)
-            }
+            },
         }
     )
 
@@ -61,7 +62,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
             onSuccess() {
                 message.success('删除成功')
                 setIsDeletedState(true)
-            }
+            },
         }
     )
 
@@ -72,48 +73,52 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                 <div className={styles.left}>
                     <Link to={isPublished ? `/question/stat/${_id}` : `/question/edit/${_id}`}>
                         <Space>
-                            { isStarState && <StarOutlined style={{ color: 'red'}} /> }
+                            {isStarState && <StarOutlined style={{ color: 'red' }} />}
                             {title}
                         </Space>
                     </Link>
                 </div>
                 <div className={styles.right}>
                     <Space>
-                        { isPublished ? <Tag color="processing">已发布</Tag> : <Tag>未发布</Tag>}
+                        {isPublished ? <Tag color="processing">已发布</Tag> : <Tag>未发布</Tag>}
                         <span>答卷：{answerCount}</span>
                         <span>{createdAt}</span>
                     </Space>
                 </div>
             </div>
-            <Divider style={{ margin: '12px 0'}} />
+            <Divider style={{ margin: '12px 0' }} />
             <div className={styles['button-container']}>
                 <div className={styles.left}>
                     <Space>
-                        <Button 
-                            type='text' 
-                            size='small' 
+                        <Button
+                            type="text"
+                            size="small"
                             icon={<EditOutlined />}
                             onClick={() => nav(`/question/edit/${_id}`)}
-                        >编辑问卷</Button>
-                        <Button 
-                            type='text' 
-                            size='small' 
+                        >
+                            编辑问卷
+                        </Button>
+                        <Button
+                            type="text"
+                            size="small"
                             disabled={!isPublished}
                             icon={<LineChartOutlined />}
                             onClick={() => nav(`/question/stat/${_id}`)}
-                        >数据统计</Button>
+                        >
+                            数据统计
+                        </Button>
                     </Space>
                 </div>
                 <div className={styles.right}>
                     <Space>
-                        <Button 
-                            type='text' 
-                            size='small' 
-                            icon={<StarOutlined />} 
-                            onClick={changeStar} 
+                        <Button
+                            type="text"
+                            size="small"
+                            icon={<StarOutlined />}
+                            onClick={changeStar}
                             disabled={changeStarLoading}
                         >
-                            { isStarState ? '取消标星' : '标星'}
+                            {isStarState ? '取消标星' : '标星'}
                         </Button>
                         <Popconfirm
                             title="确定复制该问卷？"
@@ -121,7 +126,12 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                             cancelText="取消"
                             onConfirm={duplicate}
                         >
-                            <Button type='text' size='small' icon={<CopyOutlined />} disabled={duplicateLoading}>
+                            <Button
+                                type="text"
+                                size="small"
+                                icon={<CopyOutlined />}
+                                disabled={duplicateLoading}
+                            >
                                 复制
                             </Button>
                         </Popconfirm>
@@ -131,7 +141,12 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                             cancelText="取消"
                             onConfirm={deleteQuestion}
                         >
-                            <Button type='text' size='small' icon={<DeleteOutlined />} disabled={deleteLoading}>
+                            <Button
+                                type="text"
+                                size="small"
+                                icon={<DeleteOutlined />}
+                                disabled={deleteLoading}
+                            >
                                 删除
                             </Button>
                         </Popconfirm>
